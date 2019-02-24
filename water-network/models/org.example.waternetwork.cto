@@ -1,0 +1,112 @@
+namespace org.example.waternetwork
+
+participant Organisation identified by OrgId {
+  o String OrgId
+  o String classes
+  o String password 
+}
+
+asset Wrc identified by WrcId{
+  o String WrcId
+  o Double WrcDue
+  --> Money money
+ --> Organisation owner
+}
+
+
+asset Money identified by MoneyId{
+  o String MoneyId
+  o Integer Money_data
+
+--> Organisation owner
+}
+
+asset Iotdata identified by IotdataId{
+  o String IotdataId
+  
+  o Double currentMeterAVol
+  o Double currentMeterBVol
+  
+  
+  o Double TotalMeterAVol
+  o Double TotalMeterBVol
+  o Double MeterBPH
+  o Double MeterBSolids
+  o Double MeterBHardness
+  o Double MeterBOil
+  o Double MeterBBOD
+  o Double TimeStamp
+  o Double qualityFactor
+  o Double qualityWrcWeight
+  o Double quantityWrcWeight
+  o Integer count
+  o String waterCleanOrDirty
+ 
+  --> Organisation owner
+}
+
+
+transaction updateIotData{
+  o String IotdataId
+  
+  o Double currentMeterAVol
+  o Double currentMeterBVol
+  
+  
+  o Double MeterBPH
+  o Double MeterBSolids
+  o Double MeterBHardness
+  o Double MeterBOil
+  o Double MeterBBOD
+  o Double TimeStamp
+  o Integer count
+  o String waterCleanOrDirty
+  
+  --> Iotdata iot
+}
+
+
+transaction qualityWrc{
+    --> Iotdata currentIotData
+    --> Organisation owner
+      --> Wrc wrc
+}
+
+
+transaction quantityWrc{
+    --> Iotdata currentIotData
+    --> Organisation owner
+      --> Wrc wrc
+}
+
+
+
+transaction moneySetData{
+  o Integer moneyValue 
+-->Money money
+}
+
+
+
+
+
+
+transaction WRCTrade{
+  o Double wrcTradeValue
+ 
+  -->Iotdata data
+  --> Wrc wrcBuyer
+  --> Wrc wrcSeller
+
+}
+
+
+transaction WRCToIncentives{
+  o Double wrcIntialDueValueSet
+--> Wrc wrc
+--> Iotdata currentIotData
+}
+
+
+
+
