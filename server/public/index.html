@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,height=device-height,initial-scale=1.0" />
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/style_responsive.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css"
+        integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.0/animate.min.css">
+    <!-- <link rel="stylesheet" href="css/bootstrap.min.css"> -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/Chart.js"></script>
+</head>
+
+<body>
+    <div class="row">
+        <!-- <div class="row">
+      <nav class="navbar navbar-inverse">
+          <div class="container-fluid">
+            <div class="navbar-header">
+              <a class="navbar-brand" href="#">RangersZ Analytics Dashboard</a>
+            </div>
+          </div>
+        </nav>
+      </div> -->
+        <div class="row container" id="loginregisterpage">
+            <div class="login-form" id="login">
+                <form action="" id="logform" method="">
+                    <h2 class="text-center">Log in</h2>
+                    <div class="form-group">
+                        <input type="text" id="username" class="form-control" placeholder="Username">
+                    </div>
+                    <div class="form-group">
+                        <input type="password" id="password" class="form-control" placeholder="Password">
+                    </div>
+                    <div class="form-group">
+                        <button type="submit" id="loginbutton" class="btn btn-primary btn-block">Log in</button>
+                    </div>
+                    <p class="text-center" id="register-p"><a href="#register">Register</a></p>
+                </form>
+            </div>
+
+            <div class="register-form" id="register">
+                <form action="" id="regform" method="post">
+                    <h2 class="text-center">Register</h2>
+                    <div class="form-group">
+                        <input type="text" class="form-control" id="ruser" placeholder="Username">
+                    </div>
+                    <div class="form-group">
+                        <select name="Type of Org" style="padding-right:2.5%" id="rtype" size="3">
+                            <option value="Large Industries & Industrial Park">Large Industries & Industrial Park
+                            </option>
+                            <option value="Urban Local Bodies & Municipal Councils">Urban Local Bodies & Municipal
+                                Councils</option>
+                            <option value="Housing Complexes & Gated Communities">Housing Complexes & Gated Communities
+                            </option>
+                            <!-- <option value="Urban to agriculture flow of wastewater">Urban to agriculture flow of wastewater</option> -->
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <input type="password" class="form-control" id="rpass" placeholder="Password">
+                    </div>
+
+                    <div class="form-group">
+                        <button type="submit" id="registerbutton" class="btn btn-primary btn-block">Register</button>
+                    </div>
+                    <p class="text-center" id="login-p"><a href="#">Login</a></p>
+                </form>
+            </div>
+        </div>
+
+        <!-- homepage -->
+        <div class="" id="homepage">
+            <div class="row">
+                <nav class="navbar navbar-inverse">
+                    <div class="container-fluid">
+                        <div class="navbar-header">
+                            <a class="navbar-brand" href="#">Rangers Analytics Dashboard</a>
+                        </div>
+                    </div>
+                </nav>
+            </div>
+            <div class="row">
+                <div class="col-md-3 panel">
+                    <div id="participant"></div>
+                    <table style="width:100%" id="usertable">
+                        <tr>
+                            <th>Attributes</th>
+                            <th>Value</th>
+                        </tr>
+                        <!-- <tr>
+                              <td>Eve</td>
+                              <td>Jackson</td> 
+                            </tr> -->
+                    </table>
+                    <!-- <div id="Money"></div>
+                    <div id=""></div>   -->
+
+                </div>
+                <div class="col-md-9">
+                    <div class="row">
+                        <div class="panel1">
+                            <h1>Type of Organisations</h1>
+                            <table style="width:100%" id="ORGtable">
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Type</th>
+                                    <th>WRC Due</th>
+                                    <th>WRC Profit</th>
+                                    <th class="text-center">Quality Factor</th>
+                                    <th class="text-center">Target Status</th>
+                                    <th>Buy/Sell</th>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="row ninja">
+                        <h6>Enter to view charts</h6>
+                        <div class="form-group">
+                            <input type="text" class="form-control" id="rorg" placeholder="name of organisation">
+                        </div>
+                        <div class="form-group">
+                            <button type="submit" id="chartbutton" data-toggle='modal' data-target='#myModal'
+                                class="btn btn-primary btn-block">Submit</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal fade" id="myModal" role="dialog">
+            <div class="modal-dialog modal-lg">
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title">Analytics</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div id="PMU" data-toggle="modal" data-target="#ModChart2">
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <canvas id="vf" class="freqchart chartpmu"></canvas>
+                                </div>
+                                <div class="col-sm-6">
+                                    <canvas id="cf" class="currentchart chartpmu"></canvas>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <canvas id="vp" class="voltagechart chartpmu"></canvas>
+                                <!-- <canvas id="cp" class="powerchart chartpmu"></canvas> -->
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal fade" id="myModalbutton" role="dialog">
+            <div class="modal-dialog modal-lg">
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title">Purchase</h4>
+                    </div>
+                    <div class="modal-body">
+                        <h4>Enter the amount</h4>
+                        <input type="text" name="amount" id="amount"><br>
+                        <h4>Enter the Name of Seller</h4>
+                        <input type="text" name="Name" id="orgname"><br>
+                        <button type="submit" id="amountbutton" class="btn btn-primary btn-block">Submit</button>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+    </div>
+
+</body>
+<script src="./js/socket.io.js"></script>
+<script src="http://10.172.4.13:800/socket.io/socket.io.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+<!-- Latest compiled JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+<script src="./js/control.js"></script>
+<script src="./js/index.js"></script>
+
+</html>
