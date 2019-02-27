@@ -7,7 +7,7 @@ var address = require('network-address');
 var http = require('http').Server(app);
 var io = require('socket.io')(http);
 var JsonSocket = require('json-socket');
-var port = 800;
+var port = 4869;
 var ip = address();//"192.168.43.239"
 
 app.use(express.static(__dirname + '/public'));
@@ -19,7 +19,7 @@ http.listen(port, ip, function () {
     console.log('listening on ' + ip + ':' + port);
 });
 
-var url = "http://10.172.3.211:3000/api/"
+var url = "http://192.168.0.50:3000/api/"
 var namespace = "org.example.waternetwork."
 var USER = "Organisation"
 var ASSET1 = "Money"
@@ -162,6 +162,7 @@ io.on('connection', function (socket) {
                                         var mi = 0;
                                         var ni =msg[i]["WrcDue"];
                                     }
+                                    console.log("n"+n)
                                     y.push({
                                         "Name": body[i]["OrgId"],
                                         "Type": body[i]["classes"],
@@ -173,6 +174,7 @@ io.on('connection', function (socket) {
                                 }
                                 io.emit('tabledata', y);
                                 y = [];
+                                flag=true;
                             });
                         });
                     });
@@ -198,24 +200,25 @@ io.on('connection', function (socket) {
             // console.log('Auth  ' + msg + nin);
         });
     });
+
     socket.on('rorg', function (msg) {
         console.log(msg);
+        // setTimeout(function(){ alert("Hello"); 
+        
+        // }, 3000);
 
         setTimeout(function count() {
             if (count-- <= 0) {
                 console.log('0!')
             } else {
-
                 client.get(url + ASSET3 + "/" + msg, function (err, res, body) {
-                    console.log(body["TotalMeterBVol"]+ body["TimeStamp"]);
-                    io.emit('CHART1', body["TotalMeterBVol"], body["TimeStamp"],body["TotalMeterAVol"], body["TotalMeterBVol"],body["MeterBPH"],body["MeterBSolids"],body["MeterBHardness"],body["MeterBOil"],body["MeterBBOD"]);
+                    console.log(body["TotalMeterBVol"]+ body["count"]);
+                    io.emit('CHART1', body["TotalMeterBVol"], body["count"],body["TotalMeterAVol"], body["TotalMeterBVol"],body["MeterBPH"],body["MeterBSolids"],body["MeterBHardness"],body["MeterBOil"],body["MeterBBOD"],body["waterCleanOrDirty"]);
                 })
 
-                setTimeout(count, 1000)
+                setTimeout(count, 500)
             }
-        }
-
-            , 1000)
+        }, 500)
     });
 
     socket.on('reg', function (user, classes, pass) {
